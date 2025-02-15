@@ -1,0 +1,22 @@
+<%= form_with model: @user do |form| %>
+  <%= form.label(:username, "Hello") %>
+  <%= form.text_field(:username, {placeholder: @user.username, value: ""}) %>
+  <%= form.label(:email, "Email Address") %>
+  <%= form.email_field(:email, {placeholder: @user.email, value: ""}) %>
+  <%= form.label :password %>
+  <%= form.password_field(:password, {placeholder: @user.password, value: ""}) %>
+
+  <%= form.submit "Change" %>
+<% end %>
+
+<% if @user.errors.any? %>
+  <div id="errors">
+    <h2><%= pluralize(@user.errors.count, "error") %> needs to be satisfied:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

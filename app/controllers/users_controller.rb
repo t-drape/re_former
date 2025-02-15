@@ -1,22 +1,20 @@
 class UsersController < ApplicationController
   def new
-    @user = User.new
   end
 
   def create
-    @user = User.new(allowed_post_params)
+    @user = User.new(username: params[:username], password: params[:password], email: params[:email])
+    # @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Form submitted!"
-      redirect_to @user
+      redirect_to new_user_path
     else
-      flash.now[:error] = "Fix errors in form content"
       render :new, status: :unprocessable_entity
     end
   end
 
   private
 
-  def allowed_post_params
-    params.expect(user: [:username, :email, :password])
+  def user_params
+    params.expect(user: [ :username, :email, :password ])
   end
 end
